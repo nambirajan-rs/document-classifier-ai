@@ -1,0 +1,28 @@
+TAX INVOICE
+Apex Logistics
+148, Temple Street, Chennai
+GSTIN: 17XXXXX1763X1Z9
+
+Invoice No: INV-18455
+Invoice Date: 09 Feb 2024
+Due Date: 10/03/2024
+
+Bill To:
+Greenleaf Foods
+139, Anna Salai, Salem
+
+Description                   Qty Unit Price       Amount
+Laser printer toner             2    4553.04      9106.08
+Cloud hosting                   7     235.60      1649.20
+Website maintenance            14    2119.95     29679.30
+Software licence (annual)       8     499.03      3992.24
+Delivery charges               14     342.60      4796.40
+LED monitor 24 inch            19     662.82     12593.58
+Network cable                   8    3171.60     25372.80
+
+Subtotal: 87189.60
+GST @ 18%: 15694.13
+Total Amount Due: 102883.73
+
+Due on receipt.
+Bank transfer details provided on request.

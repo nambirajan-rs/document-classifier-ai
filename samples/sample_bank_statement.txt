@@ -1,0 +1,33 @@
+Sample Savings Bank
+Statement of Account
+
+Account Holder: Meena Nair
+30, MG Road, Pune
+Account Number: XXXXXX6600
+Account Type: Savings
+Branch: Salem Main
+Statement Period: 2024-01-15 to 15/02/2024
+
+Opening Balance: 26139.85
+
+Date         Description                           Debit     Credit      Balance
+15/01/2024   Interest credited                             48770.21     74910.06
+2024-01-18   Loan EMI                            7336.66                67573.40
+21/01/2024   Restaurant                          1389.01                66184.39
+2024-01-21   Insurance premium                   6144.57                60039.82
+26-01-2024   UPI received                                   6281.45     66321.27
+29-01-2024   Restaurant                          1660.55                64660.72
+31/01/2024   Salary credit                                 30106.04     94766.76
+04-02-2024   Water bill                          1012.38                93754.38
+2024-02-07   Electricity bill payment           14193.36                79561.02
+12 Feb 2024  Loan EMI                            4320.52                75240.50
+15 Feb 2024  Cheque deposit                                36278.06    111518.56
+20/02/2024   DTH recharge                       12660.22                98858.34
+22-02-2024   Refund                                        17419.09    116277.43
+26/02/2024   Insurance premium                   3338.33               112939.10
+2024-02-26   Interest credited                             16377.12    129316.22
+28/02/2024   Pharmacy                           13377.44               115938.78
+04-03-2024   Electricity bill payment           13991.53               101947.25
+
+Closing Balance: 101947.25
+This is a computer generated statement.

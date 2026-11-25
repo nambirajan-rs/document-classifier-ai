@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Document Classifier</title>
+<style>
+  :root {
+    --bg: #f5f5fb; --card: #ffffff; --text: #1f1d3a; --muted: #6b6985;
+    --border: #dddbee; --accent: #534ab7; --accent2: #7f77dd;
+    --invoice: #534ab7; --bank: #1d9e75; --error: #c0392b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14131f; --card: #1e1c2e; --text: #ecebf7; --muted: #a3a1bd;
+      --border: #34314d; --error: #ff7b6b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 16px;
+         background: var(--bg); color: var(--text); font-family: "Segoe UI", system-ui, sans-serif; }
+  .card { width: 100%; max-width: 460px; background: var(--card); border: 1px solid var(--border);
+          border-radius: 16px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,.06); }
+  h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; text-align: center; }
+  .sub { color: var(--muted); font-size: 14px; text-align: center; margin: 0 0 22px; }
+  .drop { display: block; border: 2px dashed var(--border); border-radius: 12px; padding: 28px 16px;
+          text-align: center; cursor: pointer; transition: border-color .2s, background .2s; }
+  .drop:hover, .drop.over { border-color: var(--accent2); background: rgba(127,119,221,.08); }
+  .drop input { display: none; }
+  .drop .icon { font-size: 30px; }
+  .drop .hint { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  #fname { font-weight: 600; margin-top: 6px; word-break: break-all; }
+  button { width: 100%; margin-top: 14px; padding: 13px; border: 0; border-radius: 12px; cursor: pointer;
+           color: #fff; font-size: 15px; font-weight: 600;
+           background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  .error { margin-top: 16px; color: var(--error); font-size: 14px; text-align: center; }
+  .result { margin-top: 20px; border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .label { font-size: 13px; color: var(--muted); }
+  .type { font-size: 26px; font-weight: 700; text-transform: capitalize; margin: 2px 0 14px; }
+  .row { display: flex; justify-content: space-between; font-size: 14px; margin: 10px 0 4px; text-transform: capitalize; }
+  .bar { height: 9px; border-radius: 9px; background: var(--border); overflow: hidden; }
+  .bar span { display: block; height: 100%; border-radius: 9px; }
+  .invoice { color: var(--invoice); } .bank { color: var(--bank); }
+  .bg-invoice { background: var(--invoice); } .bg-bank { background: var(--bank); }
+  .file { font-size: 12px; color: var(--muted); margin-top: 12px; word-break: break-all; }
+</style>
+</head>
+<body>
+<main class="card">
+  <h1>📄 AI Document Classifier</h1>
+  <p class="sub">Upload a PDF or TXT. The model predicts: invoice or bank statement.</p>
+
+  <form method="post" enctype="multipart/form-data">
+    <label class="drop" id="drop">
+      <input type="file" name="file" id="file" accept=".pdf,.txt" required>
+      <div class="icon">📂</div>
+      <div>Click or drag a file here</div>
+      <div class="hint">PDF (with text layer) or TXT, max 10 MB</div>
+      <div id="fname"></div>
+    </label>
+    <button type="submit" id="go" disabled>Classify document</button>
+  </form>
+
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+  {% if result %}
+  <section class="result">
+    <div class="label">Predicted type</div>
+    <div class="type {{ result.label }}">{{ 'Bank statement' if result.label == 'bank' else 'Invoice' }}</div>
+    {% for label, pct in result.scores %}
+      <div class="row"><span>{{ label }}</span><strong>{{ pct }}%</strong></div>
+      <div class="bar"><span class="bg-{{ label }}" style="width: {{ pct }}%"></span></div>
+    {% endfor %}
+    <div class="file">File: {{ result.filename }}</div>
+  </section>
+  {% endif %}
+</main>
+
+<script>
+  const input = document.getElementById("file");
+  const drop = document.getElementById("drop");
+  const go = document.getElementById("go");
+  const show = () => {
+    document.getElementById("fname").textContent = input.files[0] ? input.files[0].name : "";
+    go.disabled = !input.files.length;
+  };
+  input.addEventListener("change", show);
+  ["dragenter", "dragover"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave", "drop"].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", ev => { input.files = ev.dataTransfer.files; show(); });
+</script>
+</body>
+</html>
